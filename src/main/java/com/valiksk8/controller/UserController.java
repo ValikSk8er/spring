@@ -27,6 +27,20 @@ public class UserController {
         return vm;
     }
 
+    @RequestMapping(path = "/login", method = RequestMethod.POST)
+    public ModelAndView login(@ModelAttribute(value = "user") User user, ModelAndView vm) {
+        return userService.getUserByEmail(user.getEmail())
+                .map(r -> userService.verifyPassword(r, user))
+                .map(r -> {
+                    vm.setViewName("home");
+                    return vm;
+                })
+                .orElseGet(() -> {
+                    vm.setViewName("login");
+                    return vm;
+                });
+    }
+
     @RequestMapping(path = "/register", method = RequestMethod.GET)
     public ModelAndView register(ModelAndView vm) {
         vm.setViewName("register");

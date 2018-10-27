@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,9 +26,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User getUserByEmail(String email) {
-        System.out.println(email);
-        return null;
+    public Optional<User> getUserByEmail(String email) {
+        return userDao.getByEmail(email);
+    }
+
+    @Override
+    public Optional<User> verifyPassword(User userByEmail, User user) {
+        String hashedPassworrd = hashPassword(user.getPassword());
+        return  hashedPassworrd.equals(userByEmail.getPassword())
+                ? Optional.of(userByEmail)
+                : Optional.empty();
+
     }
 
     private String getToken() {
