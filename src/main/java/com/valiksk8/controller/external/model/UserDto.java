@@ -1,27 +1,24 @@
-package com.valiksk8.model;
-
-
-import com.valiksk8.controller.external.model.RegisterUserDto;
+package com.valiksk8.controller.external.model;
 
 import javax.validation.constraints.NotNull;
 
-public class User {
+//data transfer object - для передачі даних між підсистемами (різниця між дао шо не має містити поведінки)
+public class UserDto {
 
     private Long id;
     @NotNull
     private String email;
     @NotNull
     private String password;
+    private String verifiedPassword;
     private String token;
     private String firstName;
     private String lastName;
 
-    public User() {
-    }
-
-    public User(String email, String password, String verifiedPassword, String token, String firstName, String lastName) {
+    private UserDto(String email, String password, String verifiedPassword, String token, String firstName, String lastName) {
         this.email = email;
         this.password = password;
+        this.verifiedPassword = verifiedPassword;
         this.token = token;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -60,6 +57,14 @@ public class User {
         this.password = password;
     }
 
+    public String getVerifiedPassword() {
+        return verifiedPassword;
+    }
+
+    public void setVerifiedPassword(String verifiedPassword) {
+        this.verifiedPassword = verifiedPassword;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -74,16 +79,5 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-
-    public static User of(RegisterUserDto userDto) {
-        User user = new User();
-        user.setPassword(userDto.getPassword());
-        user.setEmail(userDto.getEmail());
-        user.setToken(userDto.getToken());
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        return user;
     }
 }
