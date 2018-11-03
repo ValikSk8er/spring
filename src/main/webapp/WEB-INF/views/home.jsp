@@ -12,5 +12,6 @@
 </head>
 <body>
     <h1>Hello from Spring</h1>
+    <a class="nav-link" href="/categories">Categories</a>
 </body>
 </html>
