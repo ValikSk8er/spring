@@ -51,7 +51,7 @@ public class UserDaoImpl implements UserDao {
 
         User user = (User) sessionFactory
                 .getCurrentSession()
-                .createQuery("from User where email = :email")
+                .createQuery("from User u join fetch u.roles where email = :email")
                 .setParameter("email", email)
                 .uniqueResult();
         return Optional.ofNullable(user);

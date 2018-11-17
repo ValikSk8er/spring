@@ -7,5 +7,5 @@ import java.util.List;
 public interface CategoryDao {
     List<Category> getAll();
 
-    List<Category> getById(Long id);
+    Category getById(Long id);
 }

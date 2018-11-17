@@ -22,8 +22,13 @@ public class CategoryDaoImpl implements CategoryDao {
                 .list();
     }
 
+    //fetch - підтянути, підгрузити
     @Override
-    public List<Category> getById(Long id) {
-        return null;
+    public Category getById(Long id) {
+        return sessionFactory
+                .getCurrentSession()
+                .createQuery("from Category c join fetch c.productList where c.id =:id", Category.class)
+                .setParameter("id", id)
+                .uniqueResult();
     }
 }

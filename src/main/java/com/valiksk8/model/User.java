@@ -5,11 +5,15 @@ import com.valiksk8.controller.external.model.RegisterUserDto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
@@ -30,6 +34,9 @@ public class User {
     private String firstName;
     @Column(name = "LAST_NAME")
     private String lastName;
+    //mappedBy = "users" вказуэться імя поля в протилежному класі
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "users")
+    private Set<Role> roles = new HashSet<>();
 
     public User() {
     }
@@ -42,6 +49,13 @@ public class User {
         this.lastName = lastName;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;

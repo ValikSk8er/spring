@@ -28,7 +28,7 @@ public class CategoryController {
 //    @RequestMapping(value = "/category&c_id=?", method = RequestMethod.GET)
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public ModelAndView getCategoryById(@RequestParam("c_id") Long id, ModelAndView vm) {
-        List<Category> category = categoryService.getById(id);
+        Category category = categoryService.getById(id);
         vm.setViewName("category");
         vm.addObject("category", category);
         return vm;

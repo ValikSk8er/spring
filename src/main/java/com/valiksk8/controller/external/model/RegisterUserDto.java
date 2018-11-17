@@ -25,7 +25,6 @@ public class RegisterUserDto {
     private String lastName;
 
     private RegisterUserDto() {
-
     }
 
     private RegisterUserDto(String email, String password, String verifiedPassword, String token, String firstName, String lastName) {
