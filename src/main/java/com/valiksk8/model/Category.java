@@ -21,7 +21,6 @@ public class Category {
     private String categoryName;
     //вказати як в класі називається поле в класі, а не в таблиці
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
-
     private List<Product> productList;
 
     public Long getId() {
