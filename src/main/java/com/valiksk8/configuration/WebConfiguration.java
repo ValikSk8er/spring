@@ -12,16 +12,21 @@ import javax.servlet.ServletRegistration;
 
 public class WebConfiguration implements WebApplicationInitializer {
 
+    @Override
     public void onStartup(ServletContext sc) throws ServletException {
+        // сервлет контекст
+        // інтерфейс, розширює BeanFactory
         AnnotationConfigWebApplicationContext root =
                 new AnnotationConfigWebApplicationContext();
 
         root.scan("com.valiksk8");
+        //
         sc.addListener(new ContextLoaderListener(root));
 
         ServletRegistration.Dynamic appServlet = sc.addServlet(
                 "dispatcher",
                 new DispatcherServlet(new GenericWebApplicationContext()));
+        // шоб сервлет запустився одразу
         appServlet.setLoadOnStartup(1);
         appServlet.addMapping("/");
     }
